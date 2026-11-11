@@ -1,0 +1,511 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root {
+    --green: #168653;
+    --green-dark: #10633e;
+    --green-light: #eaf5ee;
+    --text: #20352a;
+    --muted: #75847a;
+    --border: #e4ebe5;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: #f3f7f3;
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.page {
+    max-width: 1180px;
+    margin: auto;
+    padding: 0 35px;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    min-height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.brand strong {
+    color: var(--green);
+    font-weight: 800;
+}
+
+.brand-icon {
+    font-size: 25px;
+}
+
+#language {
+    padding: 10px 15px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    padding: 65px 0 45px;
+    max-width: 720px;
+}
+
+.hero-tag,
+.step-label {
+    display: inline-block;
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.hero h1 {
+    font-family: 'Manrope', Arial, sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.15;
+    letter-spacing: -2px;
+    margin: 18px 0;
+}
+
+.hero h1 span {
+    color: var(--green);
+}
+
+.hero p {
+    max-width: 610px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* MAIN GRID */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+    padding-bottom: 55px;
+}
+
+.calculator-card,
+.results-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(31, 68, 43, 0.045);
+}
+
+.section-heading,
+.results-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-heading h2,
+.results-card > h2 {
+    font-family: 'Manrope', Arial, sans-serif;
+    font-size: 23px;
+    margin-top: 8px;
+}
+
+.leaf-decoration {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 23px;
+}
+
+.form-group {
+    margin-top: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    height: 49px;
+    padding: 0 14px;
+    border: 1px solid #dce6dd;
+    border-radius: 9px;
+    background: #fbfdfb;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(22, 134, 83, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* BUTTONS */
+
+.calculate-button,
+.print-button {
+    width: 100%;
+    height: 51px;
+    margin-top: 28px;
+    padding: 0 17px;
+    border: none;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.calculate-button {
+    background: var(--green);
+    color: white;
+}
+
+.calculate-button:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+.print-button {
+    background: #203b2b;
+    color: white;
+}
+
+.print-button:hover {
+    background: #14291c;
+}
+
+.estimate-note {
+    margin-top: 16px;
+    color: #8a968d;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* RESULTS */
+
+.results-card {
+    background: #fafffb;
+    border-color: #dcebe0;
+}
+
+.result-icon {
+    font-size: 27px;
+}
+
+.results-description {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.metric-card {
+    margin-top: 23px;
+    padding: 22px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.metric-card > span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.metric-value {
+    margin-top: 10px;
+    color: var(--green);
+    font-family: 'Manrope', Arial, sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+}
+
+.metric-value small {
+    font-size: 16px;
+}
+
+.metric-card > p {
+    margin-top: 4px;
+    color: #89968c;
+    font-size: 11px;
+}
+
+.points-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 13px;
+    padding: 19px;
+    background: var(--green-light);
+    border-radius: 12px;
+}
+
+.points-card > div:first-child > span {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.points-card p {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.points-value {
+    color: var(--green);
+    font-family: 'Manrope', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.points-value small {
+    font-size: 13px;
+}
+
+.feedback {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 18px;
+    padding: 15px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.feedback > span {
+    font-size: 20px;
+}
+
+.feedback p {
+    color: #52665a;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 23px 0;
+    border-top: 1px solid var(--border);
+    color: #8a968d;
+    font-size: 11px;
+}
+
+/* PRINT REPORT */
+
+#printReport {
+    display: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 45px;
+    }
+}
+
+@media (max-width: 500px) {
+    .page {
+        padding: 0 17px;
+    }
+
+    .navbar {
+        min-height: 72px;
+    }
+
+    .brand {
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    #language {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 42px 0 30px;
+    }
+
+    .hero h1 {
+        font-size: 37px;
+    }
+
+    .calculator-card,
+    .results-card {
+        padding: 22px;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+}
+
+/* PRINT / SAVE AS PDF */
+
+@media print {
+    @page {
+        size: A4;
+        margin: 18mm;
+    }
+
+    body {
+        background: white !important;
+        color: #20352a;
+    }
+
+    .page {
+        display: none !important;
+    }
+
+    #printReport {
+        display: block !important;
+        width: 100%;
+    }
+
+    .certificate {
+        min-height: 245mm;
+        padding: 30px 20px;
+        border: 3px solid #168653;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .certificate-brand {
+        color: #168653;
+        font-size: 17px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+    }
+
+    .certificate-line {
+        height: 2px;
+        background: #168653;
+        margin: 20px 0;
+    }
+
+    .certificate-label {
+        color: #168653;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-top: 45px;
+    }
+
+    .certificate h1 {
+        margin: 20px 0;
+        font-size: 31px;
+    }
+
+    .certificate > p {
+        line-height: 1.7;
+    }
+
+    .certificate-results {
+        display: flex;
+        gap: 15px;
+        margin: 45px 0;
+    }
+
+    .certificate-results > div {
+        flex: 1;
+        padding: 25px 10px;
+        border: 1px solid #dce8de;
+        border-radius: 10px;
+    }
+
+    .certificate-results span {
+        display: block;
+        font-size: 12px;
+        color: #68776c;
+    }
+
+    .certificate-results strong {
+        display: block;
+        margin-top: 14px;
+        color: #168653;
+        font-size: 30px;
+    }
+
+    .certificate-details {
+        margin: 35px auto;
+        max-width: 420px;
+        text-align: left;
+        line-height: 2.2;
+        font-size: 13px;
+    }
+
+    .certificate-message {
+        margin: 35px auto;
+        max-width: 450px;
+        color: #168653;
+        font-weight: bold;
+    }
+
+    .certificate-footer {
+        margin-top: 35px;
+        font-size: 9px;
+        color: #75847a;
+        letter-spacing: 1px;
+    }
+}
