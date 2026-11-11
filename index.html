@@ -5,146 +5,507 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolívar Eco-Calculator</title>
+
+    <style>
+        /* CONFIGURACIÓN GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f7f2;
+            color: #203b2b;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        /* ENCABEZADO */
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 34px;
+            color: #087443;
+            font-weight: 750;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #698071;
+            font-size: 16px;
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: #d9f3e2;
+            color: #087443;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* TARJETAS */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(22, 80, 47, 0.06);
+            border: 1px solid #e3eee6;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            color: #146b43;
+            margin-bottom: 18px;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: #809186;
+            margin-top: -10px;
+            margin-bottom: 18px;
+        }
+
+        /* FORMULARIOS */
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #40594a;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d7e5da;
+            border-radius: 10px;
+            background: #f8fbf8;
+            color: #294735;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        select:focus, input:focus {
+            border-color: #16a36a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 106, 0.12);
+        }
+
+        /* BOTÓN */
+        .calculate-btn {
+            width: 100%;
+            padding: 17px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #087c4b, #13a56c);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 25px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(8, 124, 75, 0.2);
+        }
+
+        .calculate-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* RESULTADOS */
+        .results {
+            display: none;
+            background: #e2f5e9;
+            border: 1px solid #c6e9d1;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .results h2 {
+            color: #087443;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .result-box {
+            background: white;
+            padding: 22px 15px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .result-label {
+            color: #718477;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            font-size: 27px;
+            font-weight: bold;
+            color: #087443;
+        }
+
+        .result-unit {
+            font-size: 13px;
+            color: #718477;
+        }
+
+        /* MENSAJE */
+        .message {
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            text-align: center;
+            color: #146b43;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #8a9c90;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 550px) {
+            body {
+                padding: 25px 14px;
+            }
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-value {
+                font-size: 24px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <h1>Bolívar Eco-Calculator</h1>
-    <p>Calcula tu impacto ambiental durante una semana escolar.</p>
+<div class="container">
 
-    <hr>
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">🌱</div>
+        <span class="subtitle">SUSTAINABLE CAMPUS PROJECT</span>
 
-    <h2>1. Medio de transporte</h2>
+        <h1>Bolívar Eco-Calculator</h1>
 
-    <label for="transporte">¿Cómo llegas al colegio?</label>
-    <select id="transporte">
-        <option value="bus">Bus</option>
-        <option value="privado">Carro privado</option>
-        <option value="compartido">Carro compartido</option>
-        <option value="bicicleta">Bicicleta / Caminando</option>
-    </select>
+        <p>Discover your environmental impact at school.</p>
+    </header>
 
-    <h2>2. Uso de papel</h2>
 
-    <label for="papel">¿Cuántas hojas utilizas al día?</label>
-    <input type="number" id="papel" min="0" max="1000" value="5">
+    <!-- TRANSPORTE -->
+    <section class="card">
 
-    <h2>3. Nivel de reciclaje</h2>
+        <h2>🚲 01. Medio de transporte</h2>
 
-    <label for="reciclaje">¿Cuál es tu nivel de reciclaje?</label>
-    <select id="reciclaje">
-        <option value="bajo">Bajo</option>
-        <option value="medio">Medio</option>
-        <option value="alto">Alto</option>
-    </select>
+        <p class="card-description">
+            ¿Cómo llegas al colegio normalmente?
+        </p>
 
-    <hr>
+        <label for="transporte">Selecciona tu transporte</label>
 
-    <button onclick="calcularImpacto()">Calcular impacto ambiental</button>
+        <select id="transporte">
+            <option value="bus">Bus</option>
+            <option value="privado">Carro privado</option>
+            <option value="compartido">Carro compartido</option>
+            <option value="bicicleta">Bicicleta / Caminando</option>
+        </select>
 
-    <h2>Resultados</h2>
+    </section>
 
-    <p id="resultadoCO2">CO₂ semanal: --</p>
-    <p id="resultadoPuntos">Eco-Points: --</p>
 
-    <p id="mensaje"></p>
+    <!-- PAPEL -->
+    <section class="card">
 
-    <script>
+        <h2>📄 02. Consumo de papel</h2>
 
-        function calcularImpacto() {
+        <p class="card-description">
+            Registra tu consumo diario de papel.
+        </p>
 
-            // Obtener los valores ingresados
-            const transporte = document.getElementById("transporte").value;
-            const papel = Number(document.getElementById("papel").value);
-            const reciclaje = document.getElementById("reciclaje").value;
+        <label for="papel">Hojas utilizadas por día</label>
 
-            // Validar el número de hojas
-            if (!Number.isFinite(papel) || papel < 0 || papel > 1000) {
-                alert("Ingresa un número válido de hojas entre 0 y 1000.");
-                return;
-            }
+        <input
+            type="number"
+            id="papel"
+            min="0"
+            max="1000"
+            value="5"
+            placeholder="Ejemplo: 5"
+        >
 
-            // Emisiones estimadas de transporte por día (kg de CO2)
-            const emisionesTransporte = {
-                bus: 0.6,
-                privado: 2.0,
-                compartido: 1.0,
-                bicicleta: 0
-            };
+    </section>
 
-            // Puntos según el medio de transporte
-            const puntosTransporte = {
-                bus: 30,
-                privado: 10,
-                compartido: 25,
-                bicicleta: 40
-            };
 
-            // Emisiones estimadas por hoja de papel (kg de CO2)
-            const co2PorHoja = 0.005;
+    <!-- RECICLAJE -->
+    <section class="card">
 
-            // Factor de ajuste educativo por reciclaje
-            const factoresReciclaje = {
-                bajo: 1,
-                medio: 0.8,
-                alto: 0.6
-            };
+        <h2>♻️ 03. Nivel de reciclaje</h2>
 
-            // Puntos por nivel de reciclaje
-            const puntosReciclaje = {
-                bajo: 10,
-                medio: 20,
-                alto: 30
-            };
+        <p class="card-description">
+            ¿Qué tan frecuentemente reciclas?
+        </p>
 
-            // Calcular emisiones semanales
-            const diasEscolares = 5;
+        <label for="reciclaje">Selecciona tu nivel</label>
 
-            const co2Transporte =
-                emisionesTransporte[transporte] * diasEscolares;
+        <select id="reciclaje">
+            <option value="bajo">Bajo</option>
+            <option value="medio">Medio</option>
+            <option value="alto">Alto</option>
+        </select>
 
-            const co2Papel =
-                papel * co2PorHoja *
-                diasEscolares *
-                factoresReciclaje[reciclaje];
+    </section>
 
-            const totalCO2 = co2Transporte + co2Papel;
 
-            // Calcular Eco-Points
-            const puntosPapel = Math.max(0, 30 - (papel * 1.5));
+    <!-- BOTÓN -->
+    <button class="calculate-btn" onclick="calcularImpacto()">
+        Calcular mi impacto ambiental →
+    </button>
 
-            const totalPuntos =
-                puntosTransporte[transporte] +
-                puntosPapel +
-                puntosReciclaje[reciclaje];
 
-            // Mostrar resultados
-            document.getElementById("resultadoCO2").textContent =
-                "CO₂ semanal estimado: " +
-                totalCO2.toFixed(2) + " kg";
+    <!-- RESULTADOS -->
+    <section class="results" id="resultados">
 
-            document.getElementById("resultadoPuntos").textContent =
-                "Eco-Points: " + totalPuntos.toFixed(0) +
-                " / 100";
+        <h2>🌍 Tus resultados ambientales</h2>
 
-            // Mensaje según los puntos obtenidos
-            let mensaje;
+        <div class="result-grid">
 
-            if (totalPuntos >= 80) {
-                mensaje = "¡Excelente! Tus hábitos son muy sostenibles.";
-            } else if (totalPuntos >= 60) {
-                mensaje = "¡Buen trabajo! Puedes seguir mejorando.";
-            } else if (totalPuntos >= 40) {
-                mensaje = "Vas por buen camino. Intenta mejorar tus hábitos.";
-            } else {
-                mensaje = "Puedes comenzar a adoptar hábitos más sostenibles.";
-            }
+            <div class="result-box">
 
-            document.getElementById("mensaje").textContent = mensaje;
+                <div class="result-icon">🌫️</div>
+
+                <p class="result-label">
+                    Emisiones semanales estimadas
+                </p>
+
+                <div class="result-value" id="resultadoCO2">
+                    --
+                </div>
+
+                <span class="result-unit">kg de CO₂ / semana</span>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="result-icon">🏆</div>
+
+                <p class="result-label">
+                    Tu puntuación ecológica
+                </p>
+
+                <div class="result-value" id="resultadoPuntos">
+                    --
+                </div>
+
+                <span class="result-unit">Eco-Points / 100</span>
+
+            </div>
+
+        </div>
+
+        <div class="message" id="mensaje"></div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Bolívar Eco-Calculator | Environmental Awareness Project</p>
+        <p>Calculations are educational estimates, not exact measurements.</p>
+    </footer>
+
+</div>
+
+
+<script>
+
+    function calcularImpacto() {
+
+        // Obtener información del estudiante
+        const transporte = document.getElementById("transporte").value;
+
+        const papelInput = document.getElementById("papel");
+
+        const reciclaje = document.getElementById("reciclaje").value;
+
+        const papel = Number(papelInput.value);
+
+
+        // Validar información
+        if (
+            papelInput.value.trim() === "" ||
+            !Number.isFinite(papel) ||
+            papel < 0 ||
+            papel > 1000
+        ) {
+            alert("Por favor, ingresa un número de hojas válido entre 0 y 1000.");
+            return;
+        }
+
+
+        // Emisiones de transporte por día (kg CO2)
+        const emisionesTransporte = {
+            bus: 0.6,
+            privado: 2.0,
+            compartido: 1.0,
+            bicicleta: 0
+        };
+
+
+        // Puntos por transporte
+        const puntosTransporte = {
+            bus: 30,
+            privado: 10,
+            compartido: 25,
+            bicicleta: 40
+        };
+
+
+        // Emisiones estimadas por hoja
+        const co2PorHoja = 0.005;
+
+
+        // Factores educativos de reciclaje
+        const factoresReciclaje = {
+            bajo: 1,
+            medio: 0.8,
+            alto: 0.6
+        };
+
+
+        // Puntos por reciclaje
+        const puntosReciclaje = {
+            bajo: 10,
+            medio: 20,
+            alto: 30
+        };
+
+
+        // Días escolares por semana
+        const diasEscolares = 5;
+
+
+        // Calcular CO2 del transporte
+        const co2Transporte =
+            emisionesTransporte[transporte] * diasEscolares;
+
+
+        // Calcular CO2 del papel
+        const co2Papel =
+            papel *
+            co2PorHoja *
+            diasEscolares *
+            factoresReciclaje[reciclaje];
+
+
+        // Total de emisiones
+        const totalCO2 = co2Transporte + co2Papel;
+
+
+        // Calcular Eco-Points
+        const puntosPapel = Math.max(0, 30 - (papel * 1.5));
+
+        const totalPuntos =
+            puntosTransporte[transporte] +
+            puntosPapel +
+            puntosReciclaje[reciclaje];
+
+
+        // Mostrar resultados
+        document.getElementById("resultadoCO2").textContent =
+            totalCO2.toFixed(2);
+
+        document.getElementById("resultadoPuntos").textContent =
+            totalPuntos.toFixed(0);
+
+
+        // Mensajes personalizados
+        let mensaje;
+
+        if (totalPuntos >= 80) {
+
+            mensaje = "🌟 ¡Excelente! Tus hábitos son muy sostenibles.";
+
+        } else if (totalPuntos >= 60) {
+
+            mensaje = "🌿 ¡Buen trabajo! Sigue mejorando tus hábitos.";
+
+        } else if (totalPuntos >= 40) {
+
+            mensaje = "♻️ Vas por buen camino. Puedes mejorar.";
+
+        } else {
+
+            mensaje = "🌱 ¡Es momento de adoptar hábitos más sostenibles!";
 
         }
 
-    </script>
+
+        document.getElementById("mensaje").textContent = mensaje;
+
+
+        // Desplegar la sección de resultados
+        document.getElementById("resultados").style.display = "block";
+
+    }
+
+</script>
 
 </body>
 </html>
