@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolívar Eco-Calculator</title>
+</head>
+
+<body>
+
+    <h1>Bolívar Eco-Calculator</h1>
+    <p>Calcula tu impacto ambiental durante una semana escolar.</p>
+
+    <hr>
+
+    <h2>1. Medio de transporte</h2>
+
+    <label for="transporte">¿Cómo llegas al colegio?</label>
+    <select id="transporte">
+        <option value="bus">Bus</option>
+        <option value="privado">Carro privado</option>
+        <option value="compartido">Carro compartido</option>
+        <option value="bicicleta">Bicicleta / Caminando</option>
+    </select>
+
+    <h2>2. Uso de papel</h2>
+
+    <label for="papel">¿Cuántas hojas utilizas al día?</label>
+    <input type="number" id="papel" min="0" max="1000" value="5">
+
+    <h2>3. Nivel de reciclaje</h2>
+
+    <label for="reciclaje">¿Cuál es tu nivel de reciclaje?</label>
+    <select id="reciclaje">
+        <option value="bajo">Bajo</option>
+        <option value="medio">Medio</option>
+        <option value="alto">Alto</option>
+    </select>
+
+    <hr>
+
+    <button onclick="calcularImpacto()">Calcular impacto ambiental</button>
+
+    <h2>Resultados</h2>
+
+    <p id="resultadoCO2">CO₂ semanal: --</p>
+    <p id="resultadoPuntos">Eco-Points: --</p>
+
+    <p id="mensaje"></p>
+
+    <script>
+
+        function calcularImpacto() {
+
+            // Obtener los valores ingresados
+            const transporte = document.getElementById("transporte").value;
+            const papel = Number(document.getElementById("papel").value);
+            const reciclaje = document.getElementById("reciclaje").value;
+
+            // Validar el número de hojas
+            if (!Number.isFinite(papel) || papel < 0 || papel > 1000) {
+                alert("Ingresa un número válido de hojas entre 0 y 1000.");
+                return;
+            }
+
+            // Emisiones estimadas de transporte por día (kg de CO2)
+            const emisionesTransporte = {
+                bus: 0.6,
+                privado: 2.0,
+                compartido: 1.0,
+                bicicleta: 0
+            };
+
+            // Puntos según el medio de transporte
+            const puntosTransporte = {
+                bus: 30,
+                privado: 10,
+                compartido: 25,
+                bicicleta: 40
+            };
+
+            // Emisiones estimadas por hoja de papel (kg de CO2)
+            const co2PorHoja = 0.005;
+
+            // Factor de ajuste educativo por reciclaje
+            const factoresReciclaje = {
+                bajo: 1,
+                medio: 0.8,
+                alto: 0.6
+            };
+
+            // Puntos por nivel de reciclaje
+            const puntosReciclaje = {
+                bajo: 10,
+                medio: 20,
+                alto: 30
+            };
+
+            // Calcular emisiones semanales
+            const diasEscolares = 5;
+
+            const co2Transporte =
+                emisionesTransporte[transporte] * diasEscolares;
+
+            const co2Papel =
+                papel * co2PorHoja *
+                diasEscolares *
+                factoresReciclaje[reciclaje];
+
+            const totalCO2 = co2Transporte + co2Papel;
+
+            // Calcular Eco-Points
+            const puntosPapel = Math.max(0, 30 - (papel * 1.5));
+
+            const totalPuntos =
+                puntosTransporte[transporte] +
+                puntosPapel +
+                puntosReciclaje[reciclaje];
+
+            // Mostrar resultados
+            document.getElementById("resultadoCO2").textContent =
+                "CO₂ semanal estimado: " +
+                totalCO2.toFixed(2) + " kg";
+
+            document.getElementById("resultadoPuntos").textContent =
+                "Eco-Points: " + totalPuntos.toFixed(0) +
+                " / 100";
+
+            // Mensaje según los puntos obtenidos
+            let mensaje;
+
+            if (totalPuntos >= 80) {
+                mensaje = "¡Excelente! Tus hábitos son muy sostenibles.";
+            } else if (totalPuntos >= 60) {
+                mensaje = "¡Buen trabajo! Puedes seguir mejorando.";
+            } else if (totalPuntos >= 40) {
+                mensaje = "Vas por buen camino. Intenta mejorar tus hábitos.";
+            } else {
+                mensaje = "Puedes comenzar a adoptar hábitos más sostenibles.";
+            }
+
+            document.getElementById("mensaje").textContent = mensaje;
+
+        }
+
+    </script>
+
+</body>
+</html>
